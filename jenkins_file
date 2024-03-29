@@ -8,7 +8,7 @@ pipeline {
             steps {
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/internaljar/livedemo_repo']])
 
-                dir('/Users/jrudd/Desktop/Spring\ 2024/CSI\ 5324/Week\ 12/Jenkins/livedemo') {
+                dir('/Users/jrudd/Desktop/Spring 2024/CSI 5324/Week 12/Jenkins/livedemo') {
                      sh 'mvn clean install'
                 }
             }
