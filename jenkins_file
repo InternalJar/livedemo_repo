@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                dir('/Users/jrudd/git/livedemo_repo') {
+                dir('/Users/jrudd/Desktop/Spring 2024/CSI 5324/Week 12/Jenkins/livedemo') {
                     sh 'docker build --tag internaljar/livedemo_proj .'
                 }
             }
