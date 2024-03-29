@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven_3_9_6'
+    }
+    stages {
+        stage('Build Maven') {
+            steps {
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/internaljar/livedemo_repo']])
+
+                dir('/Users/jrudd/Desktop/Spring\ 2024/CSI\ 5324/Week\ 12/Jenkins/livedemo') {
+                     sh 'mvn clean install'
+                }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                dir('/Users/jrudd/git/livedemo_repo') {
+                    sh 'docker build --tag internaljar/livedemo_proj .'
+                }
+            }
+        }
+        stage('Push Docker Image'){
+            steps{
+                withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerhubpassword')]) {
+                    sh 'docker login -u internaljar -p ${dockerhubpassword}'
+
+                    sh 'docker push internaljar/livedemo_proj'
+                }
+            }
+        }
+    }
+    post {
+            always{
+                cleanWs()
+            }
+    }
+}

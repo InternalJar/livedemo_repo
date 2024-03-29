@@ -34,8 +34,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<finalName>${project.build.finalName}</finalName>
+				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>livedemo_proj</finalName>
 	</build>
 
 </project>
